@@ -11,6 +11,8 @@ case $1 in
         exec /install-moodle.sh
         ;;
     run)
+        # Install cron job
+        echo '*/15 * * * * /usr/bin/php /var/www/admin/cli/cron.php'|crontab -u nobody -
         mysqld --user=root &
         php-fpm
         nginx

@@ -36,7 +36,7 @@ COPY rootfs /
 RUN sed -i -e 's,^socket.*,socket = /var/run/mysqld.sock,' /etc/mysql/my.cnf
 RUN sed -i -e 's,mysqli.default_socket.*,mysqli.default_socket = /var/run/mysqld.sock,' /etc/php5/php.ini
 
-EXPOSE 4080
+EXPOSE 80
 
 VOLUME /var/lib/mysql
 VOLUME /var/moodledata
