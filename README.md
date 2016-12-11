@@ -20,10 +20,10 @@ bash> docker build -t imagename .
 Three volumes are needed:
 
 * Moodle itself - /var/www/
-** Since Moodle plugins work by installing them selves into the Moodle
-   directory, it must be preserved and writable for Moodle itself.
+  ** Since Moodle plugins work by installing them selves into the Moodle
+     directory, it must be preserved and writable for Moodle itself.
 * Moodle data - /var/moodledata/
-** This is where uploaded documents etc. are stored
+  ** This is where uploaded documents etc. are stored
 * MariaDB data files - /var/lib/mysql/
 
 For simplicity, these volumes are stored externally to the image itself.
@@ -56,10 +56,24 @@ bash> docker run -ti --rm -v /data/moodle/moodle:/var/www -v /data/moodle/moodle
 
 ### Running the service
 
+The container listens to HTTP requests on port 4080, and you need to redirect
+a port (typically 80).
+
 To actually start the service, run:
 ```sh
-bash> docker run -d -v /data/moodle/moodle:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql moodle run
+bash> docker run -d -v /data/moodle/moodle:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql -p 80:4080 moodle run
 ```
+
+### Configuring Moodle
+
+To start configuring Moodle, enter the URL in your web browser
+(i.e. http://localhost:portnumber/).
+
+The Moodle configuration "wizard" will now ask a number of questions
+about timezones, etc. When it asks for database information, you need to
+select 'mariadb/native', and enter the socket as '/var/lib/mysqld.sock'.
+
+After this, everything should be up and running.
 
 ### Backup / restore
 
