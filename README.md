@@ -31,7 +31,7 @@ For simplicity, these volumes are stored externally to the image itself.
 To create the volumes, you need three empty directorys, i.e.:
 
 ```sh
-bash> mkdir /data/moodle/moodle
+bash> mkdir /data/moodle/www
 bash> mkdir /data/moodle/moodledata
 bash> mkdir /data/moodle/db
 ```
@@ -46,22 +46,22 @@ Moodle distribution files must be initialized.
 
 To initialize the MariaDB database, run:
 ```sh
-bash> docker run -ti --rm -v /data/moodle/moodle:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql moodle install-db
+bash> docker run -ti --rm -v /data/moodle/www:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql moodle install-db
 ```
 
 To install the Moodle distribution files, run:
 ```sh
-bash> docker run -ti --rm -v /data/moodle/moodle:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql moodle install-moodle
+bash> docker run -ti --rm -v /data/moodle/www:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql moodle install-moodle
 ```
 
 ### Running the service
 
-The container listens to HTTP requests on port 4080, and you need to redirect
+The container listens to HTTP requests on port 80, and you need to redirect
 a port (typically 80).
 
 To actually start the service, run:
 ```sh
-bash> docker run -d -v /data/moodle/moodle:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql -p 80:4080 moodle run
+bash> docker run -d -v /data/moodle/www:/var/www -v /data/moodle/moodledata:/var/moodledata -v /data/moodle/db:/var/lib/mysql -p 80:80 moodle run
 ```
 
 ### Configuring Moodle
